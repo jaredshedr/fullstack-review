@@ -21,7 +21,6 @@ let save = (indvRepo) => {
   newRepo.save((err) => {
     if (err) {
       console.log('error saving repo', err);
-      return handleError(err);
     }
   })
 }
