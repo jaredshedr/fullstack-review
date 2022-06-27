@@ -17,7 +17,13 @@ app.post('/repos', function (req, res) {
       repos.forEach((item) => {
         db.save(item);
       })
-      res.status(201).send('sueccesful post');
+
+      let tempArray = [];
+      repos.forEach((item) => {
+        tempArray.push({id: item.id, name: item.name, username: item.owner.login, forks: item.forks, url: item.html_url});
+      })
+
+      res.status(201).send(tempArray);
     }
   });
   // This route should take the github username provided

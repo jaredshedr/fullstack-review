@@ -18,6 +18,9 @@ class App extends React.Component {
     axios.get('/repos')
       .then((res) => {
         console.log('intial page load response', res.data)
+        this.setState({
+          repos: res.data
+        })
       })
   }
 
@@ -30,7 +33,12 @@ class App extends React.Component {
       url: "/repos",
       contentType: 'application/json',
       data: JSON.stringify(userName),
-      success: () => {console.log('data sent')},
+      success: (response) => {
+        console.log('data returned', response);
+        this.setState({
+          repos: response
+        })
+      },
       error: () => {console.log('post request fail')}
     })
 
@@ -39,8 +47,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }
