@@ -44,9 +44,8 @@ app.get('/repos', function (req, res) {
 });
 
 const PORT = 1128 || process.env.PORT;
-let port = 1128
 
-app.listen(port, function() {
-  console.log(`listening on port ${port}`);
+app.listen(PORT, function() {
+  console.log(`listening on port ${PORT}`);
 });
 
