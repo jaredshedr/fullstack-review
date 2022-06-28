@@ -14,6 +14,7 @@ app.post('/repos', function (req, res) {
   git.getReposByUsername(req.body.username, (err, repos) => {
     if (err) {
       console.log('in get repos by username - server side', err)
+      res.status(500).send('hitting repos endpoint in server')
     } else {
       let difference = undefined;
       let tempArray = [];
