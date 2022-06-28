@@ -1,1 +1,1 @@
-web: npx server/index.js
+web: npm start server/index.js
