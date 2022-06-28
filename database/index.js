@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
+// mongoose.connect('mongodb+srv://jaredshedr:oreocookies@cluster0.s2njyhk.mongodb.net/?retryWrites=true&w=majority');
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
@@ -37,5 +38,17 @@ let getTop = (callback) => {
   })
 }
 
+let findExisting = (currentUser, callback) => {
+
+  Repo.find({username: currentUser}).exec((err, result) => {
+    if (err) {
+      console.log('error find exisiting in exec', err)
+    } else {
+      callback(null, result);
+    }
+  })
+}
+
 module.exports.save = save;
 module.exports.getTop = getTop;
+module.exports.findExisting = findExisting;

@@ -14,16 +14,30 @@ app.post('/repos', function (req, res) {
     if (err) {
       console.log('in get repos by username - server side', err)
     } else {
-      repos.forEach((item) => {
-        db.save(item);
-      })
-
+      let difference = undefined;
       let tempArray = [];
       repos.forEach((item) => {
         tempArray.push({id: item.id, name: item.name, username: item.owner.login, forks: item.forks, url: item.html_url});
       })
 
-      res.status(201).send(tempArray);
+      let existingArray = undefined;
+      db.findExisting(req.body.username, (err, data) => {
+        if (err) {
+          console.log('error in find existing', err);
+        } else {
+          //do something with data
+          existingArray = data;
+          difference = tempArray.length - existingArray.length;
+
+          res.status(201).send([tempArray, difference]);
+        }
+      })
+
+
+      repos.forEach((item) => {
+        db.save(item);
+      })
+
     }
   });
   // This route should take the github username provided
