@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 let git = require('../helpers/github.js');
 let db = require('../database/index.js');
+let _ = require('underscore');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
